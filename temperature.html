@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+
+
+<html> <!-- opening tag-->
+    <head>
+        <meta charset="UTF-8">
+        <meta name="vieuwport" content="width=device=width, initial-scale=1.0">
+        <title>Socket.IO</title>
+    
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js"></script>
+<link href="https://fonts.googleapis.com/css?family=Roboto&display=swap"rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"></script>
+<script src ="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.2/axios.min.js"></script>
+
+
+
+    </head>
+    <script>
+        
+        
+
+        const socket = io()
+ 
+      socket.on('temperature', (temp) => {
+          console.log('Temperature:', temp)
+          document.getElementById('temperature').innerHTML = temp
+          })
+      let myChart
+ 
+      function renderMyChart(labels, data) {
+        const ctx = document.getElementById('myChart').getContext('2d');
+        myChart = new Chart(ctx, {
+          type: 'line',
+          data: {
+            labels: labels,
+            datasets: [{
+              label: 'Temperature(°C)',
+              data: data,
+              backgroundColor: ['Red']
+            }]
+          },
+          options: {
+            scales: {
+              yAxes: [{
+                ticks: {
+                  beginAtZero: true
+                }
+              }]
+            }
+          }
+        });
+      }
+ 
+      socket.on('chart', (data) => {
+        console.log(data);
+        renderMyChart(
+          data.map(x => x.Date),
+          data.map(x => x.Temp_sensor)
+        )
+      })  
+  </script>
+<body>
+<div class="container mt-5 mb-3">
+    <h2>Temperature</h2>
+    <p>Om de temperatuur van TC74 te tonen wordt gebruikt gemaakt van socket.io</p>
+
+    <div class="bg-light text-center mt-4" style="margin: 0 auto; max-width: 200px;">
+        <h3><span id="temperature">000</span>°C</h3>
+        
+    </div>
+    <div>
+            <canvas id="myChart" height="100" width="300"></canvas>
+          </div>
+</div>
+</body>

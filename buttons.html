@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+
+
+<html> <!-- opening tag-->
+    <head>
+        <meta charset="UTF-8">
+        <meta name="vieuwport" content="width=device=width, initial-scale=1.0">
+        <title>Socket.IO</title>
+        <link rel="stylesheet" type="text/css" href=".css">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js"></script>
+    </head>
+<body>
+<div class="container mt-5 mb-3">
+    <script>
+    let socket = io();
+    </script>
+    <h2>Buttons</h2>
+    <p>GPIO output bedienen</p>
+    <div class="text-center">
+        <button onclick="socket.emit('off')" class="btn btn-primary text-white">ON </button>
+        <button onclick="socket.emit('on')" class="btn btn-danger text-white">OFF</button>
+    </div>
+</div>
+</body>
+</html>
+<!--je stuurt van de website naar index.js --> 

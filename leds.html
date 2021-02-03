@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+
+
+<html> <!-- opening tag-->
+    <head>
+        <meta charset="UTF-8">
+        <meta name="vieuwport" content="width=device=width, initial-scale=1.0">
+        <title>Socket.IO</title>
+       
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js"></script>
+    </head>
+<body>
+<div class="container mt-3 mb-3">
+    <script>
+        let socket = io();
+        socket.on('inputs', data => {
+            console.log(data)
+        })
+
+        
+        socket.on('inputs', (data) => {
+            console.log('Inputs:', data)
+            data.forEach(el => {
+                if (el.value == 1) {
+                
+                    document.getElementById(`input-${el.index}`).innerHTML =  `input-${el.index}` + "is actief";
+                } else {
+                    document.getElementById(`input-${el.index}`).innerHTML = `input-${el.index}` + "is niet actief";
+                }
+            })
+            })
+
+    </script>
+    <h2>Leds</h2>
+    <p>Hier kunnen inputs worden ingelezen.</p>
+    <div class="text-center row">
+        <div class="col col-sm-4 col-md-4 col-lg-4">
+            <div id="input-0" class="bg-light">input 0</div>
+        </div>
+        <div class="col col-sm-4 col-md-4 col-lg-4">
+            <div id="input-1" class="bg-light">input 1</div>
+        </div>
+        <div class="col col-sm-4 col-md-4 col-lg-4">
+            <div id="input-2" class="bg-light">input 2</div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
